@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -304,6 +305,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9de1938d54e8184b836575f58176bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  h: 0
+  maxHealth: 0
+  idEnemy: 0
+  health: 0
+  HPSlider: {fileID: 0}
 --- !u!1 &1419495938
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,6 +509,7 @@ GameObject:
   - component: {fileID: 1829146393}
   - component: {fileID: 1829146392}
   - component: {fileID: 1829146391}
+  - component: {fileID: 1829146394}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -562,7 +581,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 519420030}
-        m_MethodName: GeneratorEnemy
+        m_MethodName: Test
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -609,6 +628,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829146389}
   m_CullTransparentMesh: 0
+--- !u!114 &1829146394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829146389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 195526347ea80bb4f905e3b633d57437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1839266549
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,6 +719,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1825001991}
     m_Modifications:
+    - target: {fileID: 1426263554, guid: 07ca65b0d2eefdf48a7243f56c53c06b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426263554, guid: 07ca65b0d2eefdf48a7243f56c53c06b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 364203202815847611, guid: 07ca65b0d2eefdf48a7243f56c53c06b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -746,12 +785,12 @@ PrefabInstance:
     - target: {fileID: 364203202815847611, guid: 07ca65b0d2eefdf48a7243f56c53c06b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -218
+      value: -237
       objectReference: {fileID: 0}
     - target: {fileID: 364203202815847611, guid: 07ca65b0d2eefdf48a7243f56c53c06b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 81
+      value: 217
       objectReference: {fileID: 0}
     - target: {fileID: 364203202815847611, guid: 07ca65b0d2eefdf48a7243f56c53c06b,
         type: 3}
@@ -797,6 +836,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: prefab_enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 364203204320443932, guid: 07ca65b0d2eefdf48a7243f56c53c06b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07ca65b0d2eefdf48a7243f56c53c06b, type: 3}
