@@ -432,4 +432,4 @@ MonoBehaviour:
   maxHealth: 0
   idEnemy: 0
   health: 0
-  HPSlider: {fileID: 0}
+  HPSlider: {fileID: 2041069879}
