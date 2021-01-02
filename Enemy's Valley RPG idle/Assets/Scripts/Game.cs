@@ -100,8 +100,9 @@ public class Game : MonoBehaviour
     {
         
         GameObject enemyObj = Instantiate(prefab_enemy, prefab_enemy.transform.position, Quaternion.identity) as GameObject;
-        Enemy enemy = new Enemy(idEnemy, 100, 100);
-        enemyObj.AddComponent<Enemy>();
+        enemyObj.GetComponent<Enemy>().idEnemy = idEnemy;
+        enemyObj.GetComponent<Enemy>().maxHealth= 100;
+        enemyObj.GetComponent<Enemy>().health = 100;
         int rand = Random.Range(0, 4);
         enemyObj.GetComponent<Image>().sprite = EnemiesSprite[rand];
         enemyObj.transform.SetParent(BGFight.transform);

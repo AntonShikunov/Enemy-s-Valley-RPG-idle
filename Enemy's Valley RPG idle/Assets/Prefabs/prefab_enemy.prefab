@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   h: 0
-  maxHealth: 0
+  maxHealth: 100
   idEnemy: 0
-  health: 0
+  health: 100
   HPSlider: {fileID: 2041069879}

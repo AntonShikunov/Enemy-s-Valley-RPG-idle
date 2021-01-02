@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
         this.idEnemy = idEnemy;
         this.maxHealth = maxHealth;
         this.health = health;
-
     }
 
     public int getIdEnemy() { return idEnemy; }
@@ -37,20 +36,24 @@ public class Enemy : MonoBehaviour
     {
         transform.localScale = new Vector3(1f, 1f, 1f);
         gameObject.GetComponent<Image>().color = new Color(255 / 255.0f, 255 / 255.0f, 255 / 255.0f);
-        HPSlider.maxValue = getMaxHealth();
         hit_enemy();
-        HPSlider.value = getHealth();
 
         //Destroy(gameObject);
     }
+
+    public void Update()
+    {
+        HPSlider.value = getHealth();
+    }
+
 
     /// <summary>
     /// Метод, который вызывается всякий раз когда бьёшь противника
     /// </summary>
     public void hit_enemy()
     {
-        setHealth(getHealth() - Skills.baseDamage);
-        
+        //setHealth(getHealth() - Skills.baseDamage);
+        health -= Skills.baseDamage;
     }
 
 }
