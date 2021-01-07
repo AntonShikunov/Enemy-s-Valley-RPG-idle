@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    public int h;
-    public int maxHealth;
-    public int idEnemy, health; /* id считывается для того чтоб воспроизводилась нужная анимация появления
+    private int maxHealth;
+    private int idEnemy, health; /* id считывается для того чтоб воспроизводилась нужная анимация появления
     (всего 5 id. Для idEnemy = 1 воспроизводится анимация NewEnemy, для idEnemy = 2 анимация NewEnemy2 и т.д... health - здоровье*/
     public Slider HPSlider; // слайдер здоровья противника
+    public Text HPText; // текст в котором отображается уровень здоровья
 
     public Enemy(int idEnemy, int maxHealth, int health) // конструктор противника
     {
@@ -38,12 +38,16 @@ public class Enemy : MonoBehaviour
         gameObject.GetComponent<Image>().color = new Color(255 / 255.0f, 255 / 255.0f, 255 / 255.0f);
         hit_enemy();
 
-        //Destroy(gameObject);
     }
-
+    public void Start()
+    {
+        HPSlider.maxValue = getMaxHealth();
+   
+    }
     public void Update()
     {
         HPSlider.value = getHealth();
+        HPText.text = "" + getHealth().ToString("N0");
     }
 
 
@@ -54,6 +58,15 @@ public class Enemy : MonoBehaviour
     {
         //setHealth(getHealth() - Skills.baseDamage);
         health -= Skills.baseDamage;
+        if (getHealth() <= 0)
+        {
+            gameObject.GetComponent<Animation>().Play("KillEnemy");
+            if (gameObject.tag == "Boss") 
+            {
+
+            }
+            Destroy(gameObject, 1f);
+        }
     }
 
 }
