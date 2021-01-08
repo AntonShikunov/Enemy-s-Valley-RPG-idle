@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Skills : MonoBehaviour
 {
-    public static int baseDamage = 1; // базовый урон
+    public static int baseDamage = 10000; // базовый урон
 }

@@ -14,6 +14,8 @@ public class Game : MonoBehaviour
 
     public static int WaveEnemy = 9; // волна противников (от 1 до 10, 10-й Босс)
     public static int idEnemy = 0; // id противника для воспроизведения нужной анимации.
+    public static int lastHPEnemy = 10; // последний показатель HP у врагов, нужен для того чтобы к нему прибавить процент для нового показателя
+    public static int lastHPBoss = 100;
 
     public static bool CreateEnemies = true; // нужно ли создавать противников
 
@@ -21,15 +23,13 @@ public class Game : MonoBehaviour
     public GameObject prefab_boss; // префаб босса. Создаются его копии
 
     public GameObject BGFight; // родной фон для префаба противника
-
     public Slider HPBossSlider; // слайдер здоровья Босса. Включается тогда и только тогда когда появляется на сцене БОСС
-    public Text HPBossText; // текст в котором отображается уровень здоровья БОССА ТВАРИ
 
     public Sprite[] EnemiesSprite = new Sprite[4]; // массив спрайтов противников
     public Sprite[] BossSprite = new Sprite[2]; // массив спрайтов босса
     void Start()
     {
-        HPBossSlider.GetComponent<GameObject>().SetActive(false);
+
     }
 
     
@@ -52,11 +52,9 @@ public class Game : MonoBehaviour
 
         if (GameObject.FindGameObjectsWithTag("Boss").Length > 0)
         {
-            HPBossSlider.GetComponent<GameObject>().SetActive(true);
-            HPBossSlider.maxValue = GetComponent<Enemy>().getMaxHealth();
-            HPBossSlider.value = GetComponent<Enemy>().getHealth();
-            HPBossText.text = "" + GetComponent<Enemy>().getHealth().ToString("N0");
+            HPBossSlider.gameObject.SetActive(true);
         }
+        else { HPBossSlider.gameObject.SetActive(false); }
 
         if (CreateEnemies == true)
         {
@@ -119,15 +117,37 @@ public class Game : MonoBehaviour
         CreateEnemies = true;
     }
     /// <summary>
+    /// Метод генерирует случайное количество ХП каждого противника на основе предыдущего показателя хп, к которому прибавляется 10 процентов
+    /// </summary>
+    /// <param name="lastHP">Сюда вносится последний показатель ХП</param>
+    /// <returns></returns>
+    public int GenerationHealthEnemy(int lastHP)
+    {
+        int randHP = Random.Range((lastHP - (lastHP / 100) * 20), (lastHP + (lastHP / 100) * 20)); // Случайное количество ХП показателя от -10% до +10%. Например 100 ХП (от 90 до 110)
+        return randHP;
+    }
+    /// <summary>
+    /// Метод генерирует случайное количество ХП каждого Босса на основе предыдущего показателя хп, к которому прибавляется 10 процентов
+    /// </summary>
+    /// <param name="lastHP">Сюда вносится последний показатель ХП</param>
+    /// <returns></returns>
+    public int GenerationHealthBoss(int lastHP)
+    {
+        int randHP = Random.Range((lastHP - (lastHP / 100) * 20), (lastHP + (lastHP / 100) * 20)); // Случайное количество ХП показателя от -10% до +10%. Например 100 ХП (от 90 до 110)
+        return randHP;
+    }
+    /// <summary>
     /// Метод генерации противника
     /// </summary>
     public void GeneratorEnemy()
     {
         
         GameObject enemyObj = Instantiate(prefab_enemy, prefab_enemy.transform.position, Quaternion.identity) as GameObject;
+        int hp = GenerationHealthEnemy(lastHPEnemy); // генерируется количество ХП для противника
         enemyObj.GetComponent<Enemy>().setIdEnemy(idEnemy);
-        enemyObj.GetComponent<Enemy>().setMaxHealth(1);
-        enemyObj.GetComponent<Enemy>().setHealth(1);
+        enemyObj.GetComponent<Enemy>().setMaxHealth(hp); // заносится максимальное количество ХП
+        enemyObj.GetComponent<Enemy>().setHealth(hp); // заносится количество ХП
+        lastHPEnemy = hp; // меняется последний показатель ХП для дальнейших его манипуляций в методе GenerationHealth();
         int rand = Random.Range(0, 4);
         enemyObj.GetComponent<Image>().sprite = EnemiesSprite[rand];
         enemyObj.transform.SetParent(BGFight.transform);
@@ -149,9 +169,10 @@ public class Game : MonoBehaviour
     public void GeneratorBoss()
     {
         GameObject enemyObj = Instantiate(prefab_boss, prefab_boss.transform.position, Quaternion.identity) as GameObject;
-        enemyObj.GetComponent<Enemy>().setIdEnemy(idEnemy);
-        enemyObj.GetComponent<Enemy>().setMaxHealth(2);
-        enemyObj.GetComponent<Enemy>().setHealth(2);
+        int hp = GenerationHealthBoss(lastHPBoss); // генерируется количество ХП для противника
+        enemyObj.GetComponent<Boss>().setIdEnemy(idEnemy);
+        enemyObj.GetComponent<Boss>().setMaxHealth(hp);
+        enemyObj.GetComponent<Boss>().setHealth(hp);
         int rand = Random.Range(0, 2);
         enemyObj.GetComponent<Image>().sprite = BossSprite[rand];
         enemyObj.transform.SetParent(BGFight.transform);

@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
     public void Start()
     {
         HPSlider.maxValue = getMaxHealth();
-   
+
     }
     public void Update()
     {
