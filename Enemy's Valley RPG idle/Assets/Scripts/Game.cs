@@ -22,7 +22,8 @@ public class Game : MonoBehaviour
     public GameObject prefab_enemy; // префаб противника. Создаются его копии
     public GameObject prefab_boss; // префаб босса. Создаются его копии
 
-    public GameObject BGFight; // родной фон для префаба противника
+    public GameObject BGFight; // родной фон для префаба противника (скорее всего устарело, заменено на RespawnEnemies)
+    public GameObject RespawnEnemies; // место спавна противников 
     public Slider HPBossSlider; // слайдер здоровья Босса. Включается тогда и только тогда когда появляется на сцене БОСС
 
     public Sprite[] EnemiesSprite = new Sprite[4]; // массив спрайтов противников
@@ -150,7 +151,7 @@ public class Game : MonoBehaviour
         lastHPEnemy = hp; // меняется последний показатель ХП для дальнейших его манипуляций в методе GenerationHealth();
         int rand = Random.Range(0, 4);
         enemyObj.GetComponent<Image>().sprite = EnemiesSprite[rand];
-        enemyObj.transform.SetParent(BGFight.transform);
+        enemyObj.transform.SetParent(RespawnEnemies.transform);
         enemyObj.transform.localScale = new Vector3(1f, 1f, 1f);
         switch (idEnemy)
         {
